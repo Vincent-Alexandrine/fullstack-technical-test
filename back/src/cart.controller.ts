@@ -1,6 +1,7 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
 import { Cart, CartService } from './cart.service';
 import { AddToCartDTO } from './dto/add-to-cart.dto';
+import { RemoveFromCartDTO } from './dto/remove-from-cart.dto';
 
 @Controller('/cart')
 export class CartController {
@@ -19,5 +20,11 @@ export class CartController {
   @Post('/:id')
   addToCart(@Param('id') id: string, @Body() { items }: AddToCartDTO): Cart {
     return this.cartService.putItems(id, items);
+  }
+
+  // NOTE: patch request, how it's the cart that is modified partially, and not deleted entirely
+  @Patch('/:id')
+  removeFromCart(@Param('id') id: string, @Body() { items }: RemoveFromCartDTO): Cart {
+    return this.cartService.removeItems(id, items);
   }
 }
