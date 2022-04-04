@@ -9,7 +9,7 @@ function Hits ({ hits }) {
   const total = hits.reduce((acc, { salePrice }) => acc += salePrice, 0);
 
   return (
-    <div>
+    <div className={styles.container}>
       <span className={styles.total}>
         TOTAL: {total}
       </span>
@@ -17,7 +17,7 @@ function Hits ({ hits }) {
       <ul className={styles.list}>
         {hits.map(hit => (
           <li key={hit.objectID} className={styles.item}>
-            <figure>
+            <figure className={styles.image__container}>
               <img src={hit.image} alt={hit.name} />
             </figure>
 

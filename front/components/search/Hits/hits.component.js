@@ -30,7 +30,7 @@ function Hits ({ hits }) {
     <ul className={styles.list}>
       {buffHits.map(hit => (
         <li key={hit.objectID} className={styles.item}>
-          <figure>
+          <figure className={styles.image__container}>
             <img src={hit.image} alt={hit.name} />
           </figure>
 
