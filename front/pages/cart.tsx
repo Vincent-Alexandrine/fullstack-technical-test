@@ -1,9 +1,11 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import algoliasearch from "algoliasearch/lite";
-import { Configure, InstantSearch, Hits, SearchBox } from "react-instantsearch-dom";
+import { Configure, InstantSearch, SearchBox } from "react-instantsearch-dom";
 
 import { useCart } from '../hooks/cart.hook';
+
+import Hits from '../components/cart/Hits';
 
 const searchClient = algoliasearch(
   "latency",
