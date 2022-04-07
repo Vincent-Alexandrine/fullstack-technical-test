@@ -1,16 +1,10 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import algoliasearch from "algoliasearch/lite";
-import { Configure, InstantSearch, SearchBox } from "react-instantsearch-dom";
+import { Configure } from "react-instantsearch-dom";
 
 import { useCart } from '../hooks/cart.hook';
 
 import Hits from '../components/cart/Hits';
-
-const searchClient = algoliasearch(
-  "latency",
-  "6be0576ff61c053d5f9a3225e2a90f76"
-);
 
 export default function Cart () {
   const { cart } = useCart();
@@ -23,23 +17,26 @@ export default function Cart () {
     }, ''),
   };
 
+  const hasItems = !!cart.items.length;
+
   return (
     <div className={styles.container}>
+      <Configure {...algoliaConfig} />
       <Head>
         <title>La Fourche: cart</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main className={styles.main}>
-        <h1 className={styles.title}>
-          Cart
-        </h1>
+      <h1 className={styles.title}>
+        Cart
+      </h1>
+      {hasItems
+        && (<Hits />)
+        || (<span>
+              no items in cart
+            </span>)
+      }
 
-        <InstantSearch indexName="bestbuy" searchClient={searchClient}>
-          <Configure {...algoliaConfig} />
-          <Hits />
-        </InstantSearch>
-      </main>
     </div>
   );
 }

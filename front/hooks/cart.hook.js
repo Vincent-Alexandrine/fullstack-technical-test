@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useReducer } from 'react';
+import { createContext, useCallback, useContext, useEffect, useReducer } from 'react';
 import PropTypes from 'prop-types';
 
 import api from '../services/api.service';
@@ -33,15 +33,18 @@ async function removeFromCart (set, cartId, itemId) {
 }
 
 export function CartProvider ({ children }) {
-  const [cart, reducer] = useReducer((state, newState) => ({ state, ...newState}), {
+  const [cart, reducer] = useReducer((state, newState) => ({ ...state, ...newState}), {
     id: '',
     items: [],
   });
 
+  const _addToCart = useCallback((itemId) => addToCart(reducer, cart.id, itemId), [reducer, cart.id]);
+  const _removeFromCart = useCallback((itemId) => removeFromCart(reducer, cart.id, itemId), [reducer, cart.id]);
+
   const value = {
     cart,
-    addToCart: addToCart.bind(this, reducer, cart.id),
-    removeFromCart: removeFromCart.bind(this, reducer, cart.id),
+    addToCart: _addToCart,
+    removeFromCart: _removeFromCart,
   };
 
   useEffect(() => {
