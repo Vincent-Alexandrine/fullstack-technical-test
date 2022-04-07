@@ -2,6 +2,8 @@ import React, { connectHits } from 'react-instantsearch-dom';
 
 import api from '../../../services/api.service';
 import { useCart } from '../../../hooks/cart.hook';
+
+import Button from 'components/Button';
 import styles from './hits.module.css';
 
 function Hits ({ hits }) {
@@ -43,9 +45,9 @@ function Hits ({ hits }) {
               {hit.salePrice}
             </span>
 
-            <button className={styles.item__cta} onClick={hit.cta__click}>
+            <Button onClick={hit.cta__click}>
               {hit.cta__text}
-            </button>
+            </Button>
           </footer>
         </li>
       ))}

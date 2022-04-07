@@ -2,7 +2,8 @@ import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from 'react-instantsearch-dom';
 import PropTypes from 'prop-types';
 
-import { CartProvider } from '../hooks/cart.hook';
+import Theme from 'Theme';
+import { CartProvider } from 'hooks/cart.hook';
 import styles from "../styles/Home.module.css";
 
 const INSTANT_SEARCH = {
@@ -15,7 +16,7 @@ const INSTANT_SEARCH = {
 
 export default function layout ({ children }) {
   return (
-    <>
+    <Theme>
       <CartProvider>
         <InstantSearch {...INSTANT_SEARCH}>
           <main className={styles.main}>
@@ -34,7 +35,7 @@ export default function layout ({ children }) {
           <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
         </a>
       </footer>
-    </>
+    </Theme>
   )
 }
 
